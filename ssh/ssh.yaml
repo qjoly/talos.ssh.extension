@@ -15,4 +15,10 @@ container:
       options:
         - rbind
         - rw
+    - source: /var/lib/ssh/
+      destination: /config
+      type: bind
+      options:
+        - bind
+        - rw
 restart: always
