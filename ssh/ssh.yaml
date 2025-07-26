@@ -5,10 +5,8 @@ depends:
       - connectivity
 container:
   entrypoint: /init
-  environment:
-    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/chaosd/bin
   security:
-    writeableRootfs: false
+    writeableRootfs: true
     writeableSysfs: true
   mounts:
     - source: /
