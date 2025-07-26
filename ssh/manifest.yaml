@@ -3,7 +3,7 @@ metadata:
   name: ssh
   version: "VERSION"
   author: qjoly
-  description: ssh is a secure shell protocol implementation
+  description: '"Wooooh, talos has no ssh ?", Hold my beer.'
   compatibility:
     talos:
       version: ">= v1.8.0"
