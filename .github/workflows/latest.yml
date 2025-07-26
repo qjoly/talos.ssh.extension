@@ -2,11 +2,8 @@ name: Workflow for building and pushing the ssh extension
 
 on:
   push:
-    branches:
-      - main
-
-env:
-  APP_VERSION: v1.4.0
+    tags:
+      - 'v*'
 
 jobs:
   build-and-push:
@@ -36,7 +33,7 @@ jobs:
           images: ghcr.io/qjoly/talos.ssh.extension/app
           tags: |
             type=ref,event=tag
-            type=raw,value=${{ env.APP_VERSION }}-${{ matrix.talos_version }}-${{ matrix.arch }}
+            type=raw,value=${{ steps.meta.outputs.tags }}-${{ matrix.talos_version }}-${{ matrix.arch }}
             type=raw,value=${{ matrix.talos_version }}-${{ matrix.arch }},enable=true
 
       - name: Build and push
@@ -49,7 +46,7 @@ jobs:
 
       - name: Create Installer
         env:
-          IMAGE_EXT: ghcr.io/qjoly/talos.ssh.extension/app:${{ env.APP_VERSION }}-${{ matrix.talos_version }}-${{ matrix.arch }}@${{ steps.build.outputs.digest }}
+          IMAGE_EXT: ghcr.io/qjoly/talos.ssh.extension/app:${{ steps.meta.outputs.tags }}-${{ matrix.talos_version }}-${{ matrix.arch }}@${{ steps.build.outputs.digest }}
           ARCH: ${{ matrix.arch }}
           PROFILE: installer
         run: |
