@@ -15,10 +15,4 @@ container:
       options:
         - rbind
         - rw
-    - source: /var/lib/chaosd
-      destination: /var/lib/chaosd
-      type: bind
-      options:
-        - bind
-        - rw
 restart: always
