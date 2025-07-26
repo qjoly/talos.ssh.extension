@@ -2,7 +2,7 @@
 
 This repository contains the Talos SSH Extension, which provides SSH access to Talos nodes. This is only useful for development/debugging purposes, as Talos is designed to be managed through its API and CLI tools.
 
-Be careful to not use this in any production environment, as it will expose SSH access to your Talos nodes, which is very dangerous. Plus, I voluntarily added a mountpoint to access system files (remember, debugging only).
+Be careful to not use this in any production environment, as it will expose SSH access to your Talos nodes, which is very dangerous. Plus, I voluntarily added a mount-point to access system files (remember, debugging only).
 
 ## Features
 
@@ -15,7 +15,7 @@ Well, since I used the [LinuxServer.io base image](https://github.com/linuxser
 You have to upgrade (or install nodes) with the `ssh` extension enabled. You can do this by using the `talosctl upgrade` command or by setting a custom installer image in the machine configuration (`.machine.install.image`).
 
 ```bash
-talosctl upgrade -i ghcr.io/qjoly/talos.ssh.extension/installer:v1.10.5-amd64
+talosctl upgrade -i ghcr.io/qjoly/talos.ssh.extension/installer:v0.0.1-v1.10.5-amd64 
 ```
 
 Get the logs of the ssh daemon:
@@ -31,12 +31,20 @@ apiVersion: v1alpha1
 kind: ExtensionServiceConfig
 name: ssh
 environment:
-  - PUBLIC_KEY=mybeautifulpublickey
+  - PUBLIC_KEY=mybeautifulpublickeyoraoraoraoraora
   - PUBLIC_KEY_URL=https://github.com/qjoly.keys
+  # You can add more environment variables here, like the ones documented in the LinuxServer.io documentation.
 ``` 
 
 ```bash
 talosctl patch mc -p @talos.ssh.extension.patch.yaml
 ```
 
+By default, the username is `linuxserver.io` and the listening port is `2222`. You can change these values by patching the machine configuration.
+
+```bash
+$ ssh -p 2222 linuxserver.io@192.168.1.88
+Welcome to OpenSSH Server
+talos-fve-zkv:~#
+```
 
