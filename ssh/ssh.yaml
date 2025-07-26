@@ -1,0 +1,26 @@
+name: ssh
+depends:
+  - network:
+      - addresses
+      - connectivity
+container:
+  entrypoint: /init
+  environment:
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/chaosd/bin
+  security:
+    writeableRootfs: false
+    writeableSysfs: true
+  mounts:
+    - source: /
+      destination: /host
+      type: bind
+      options:
+        - rbind
+        - rw
+    - source: /var/lib/chaosd
+      destination: /var/lib/chaosd
+      type: bind
+      options:
+        - bind
+        - rw
+restart: always

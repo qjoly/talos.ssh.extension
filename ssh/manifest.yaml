@@ -1,0 +1,9 @@
+version: v1alpha1
+metadata:
+  name: ssh
+  version: "VERSION"
+  author: qjoly
+  description: ssh is a secure shell protocol implementation
+  compatibility:
+    talos:
+      version: ">= v1.8.0"
