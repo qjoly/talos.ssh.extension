@@ -54,7 +54,7 @@ jobs:
           ARCH: amd64
           PROFILE: installer
         run: |
-          docker run --rm -t -v /dev:/dev --privileged -e GITHUB_TOKEN=${{ secrets.GHCR_PAT }} -v "$PWD/_out:/out" \
+          docker run --rm -t -v /dev:/dev --privileged -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -v "$PWD/_out:/out" \
             "ghcr.io/siderolabs/imager:${TALOS_VERSION}" --arch "${ARCH}" \
             --system-extension-image ${IMAGE_EXT}:${{ github.event.inputs.app_version }} "${PROFILE}"
           docker load -i ./_out/installer-${ARCH}.tar 
@@ -68,7 +68,7 @@ jobs:
           ARCH: amd64
           PROFILE: iso
         run: |
-          docker run --rm -t -v /dev:/dev --privileged -e GITHUB_TOKEN=${{ secrets.GHCR_PAT }} -v "$PWD/_out:/out" \
+          docker run --rm -t -v /dev:/dev --privileged -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -v "$PWD/_out:/out" \
             "ghcr.io/siderolabs/imager:${TALOS_VERSION}" --arch "${ARCH}" \
             --system-extension-image ${IMAGE_EXT} "${PROFILE}"
 
