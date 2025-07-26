@@ -33,8 +33,6 @@ jobs:
           images: ghcr.io/qjoly/talos.ssh.extension/app
           tags: |
             type=ref,event=tag
-            # Get tag name from the event and append talos version and architecture
-            type=raw,value=${{ github.event.ref }}-${{ matrix.talos_version }}-${{ matrix.arch }}
             type=raw,value=${{ matrix.talos_version }}-${{ matrix.arch }},enable=true
 
       - name: Build and push
