@@ -32,8 +32,7 @@ jobs:
         with:
           images: ghcr.io/qjoly/talos.ssh.extension/app
           tags: |
-            type=ref,event=tag
-            type=raw,value=${{ steps.meta.outputs.tags }}-${{ matrix.talos_version }}-${{ matrix.arch }}
+            type=ref,event=tag,suffix=-${{ matrix.talos_version }}-${{ matrix.arch }}
             type=raw,value=${{ matrix.talos_version }}-${{ matrix.arch }},enable=true
 
       - name: Build and push
@@ -46,7 +45,7 @@ jobs:
 
       - name: Create Installer
         env:
-          IMAGE_EXT: ghcr.io/qjoly/talos.ssh.extension/app:${{ steps.meta.outputs.tags }}-${{ matrix.talos_version }}-${{ matrix.arch }}@${{ steps.build.outputs.digest }}
+          IMAGE_EXT: ${{ steps.meta.outputs.tags }}@${{ steps.build.outputs.digest }}
           ARCH: ${{ matrix.arch }}
           PROFILE: installer
         run: |
@@ -59,7 +58,7 @@ jobs:
 
       - name: Create ISO
         env:
-          IMAGE_EXT: ghcr.io/qjoly/talos.ssh.extension/app:${{ matrix.talos_version }}-${{ matrix.arch }}
+          IMAGE_EXT: ${{ steps.meta.outputs.tags }}
           ARCH: ${{ matrix.arch }}
           PROFILE: iso
         run: |
