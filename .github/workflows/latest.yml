@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        talos_version: [v1.9.5, v1.10.5]
+        talos_version: [v1.10.5]
         arch: [amd64, arm64]
     permissions:
       contents: read
@@ -57,7 +57,7 @@ jobs:
             "ghcr.io/siderolabs/imager:${{ matrix.talos_version }}" --arch "${ARCH}" \
             --system-extension-image ${IMAGE_EXT} "${PROFILE}"
           docker load -i ./_out/installer-${ARCH}.tar
-          docker tag ghcr.io/siderolabs/installer:${{ matrix.talos_version }} ghcr.io/qjoly/talos.ssh.extension/installer:${{ matrix.talos_version }}-${{ matrix.arch }}
+          docker tag ghcr.io/siderolabs/installer-base:${{ matrix.talos_version }} ghcr.io/qjoly/talos.ssh.extension/installer:${{ matrix.talos_version }}-${{ matrix.arch }}
           docker push ghcr.io/qjoly/talos.ssh.extension/installer:${{ matrix.talos_version }}-${{ matrix.arch }}
 
       - name: Create ISO
